@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isJumping == false)
         {
             rb.AddForce(new Vector2(rb.linearVelocity.x, jump));
         }
@@ -91,6 +91,22 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
-    
-   
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
+
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isJumping = true;
+        }
+    }
+
+
 }
