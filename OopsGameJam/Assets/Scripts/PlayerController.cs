@@ -22,9 +22,9 @@ public class PlayerController : MonoBehaviour
     //dash variables
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 50f;
-    private float dashingTime = 0.5f;
-    private float dashingCooldown = 2f;
+    public float dashingPower;
+    public float dashingTime;
+    public float dashingCooldown;
     
     Rigidbody2D rb;
 
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocity = new Vector2(Move * speed, rb.linearVelocity.y);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isJumping == false)
         {
             StartCoroutine(Dash());
         }
@@ -60,8 +60,16 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector2(rb.linearVelocity.x, jump));
         }
 
-        
-        
+        if (Move > 0)
+        {
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        if (Move < 0)
+        {
+            gameObject.transform.localScale = new Vector3(-1, -1, -1);
+        }
+
     }
 
     //function that damages the player when they collide with objects that have the enemy or hazard tag
@@ -96,6 +104,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
+            canDash = true;
         }
 
     }
@@ -105,6 +114,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             isJumping = true;
+            canDash = false;
         }
     }
 
