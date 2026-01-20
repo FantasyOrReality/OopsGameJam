@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public int currentHealth;
     public int maxHealth;
+    public Slider slider;
     
     Rigidbody2D rb;
 
@@ -16,6 +19,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+        slider.maxValue = maxHealth;
+        slider.value = currentHealth;
         
     }
 
@@ -33,7 +38,8 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        
+        slider.value = currentHealth;
+
 
         if (currentHealth <= 0)
         {
