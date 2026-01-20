@@ -47,5 +47,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Dash()
+    {
+        
+    }
    
 }
