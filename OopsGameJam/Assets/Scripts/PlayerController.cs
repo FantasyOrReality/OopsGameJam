@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     public bool isJumping;
+    bool facingRight = true;
 
     //health variables
     public int currentHealth;
@@ -65,14 +66,14 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector2(rb.linearVelocity.x, jump));
         }
 
-        if (Move > 0)
+        if (Move > 0 && !facingRight)
         {
-            gameObject.transform.localScale = new Vector2(1, 1);
+            Flip();
         }
 
-        if (Move < 0)
+        if (Move < 0 && facingRight)
         {
-            gameObject.transform.localScale = new Vector2(-1, -1);
+            Flip();
         }
 
     }
@@ -137,5 +138,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Flip()
+    {
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        facingRight = !facingRight;
+    }
 
 }
