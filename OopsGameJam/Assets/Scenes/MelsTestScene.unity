@@ -984,7 +984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Move: 5
-  speed: 5
+  speed: 3
+  jump: 200
   currentHealth: 0
   maxHealth: 5
   slider: {fileID: 1466214102}
