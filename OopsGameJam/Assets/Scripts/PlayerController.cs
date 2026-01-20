@@ -51,21 +51,24 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocity = new Vector2(Move * speed, rb.linearVelocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        //DASHING
+        if (Input.GetKeyDown(KeyCode.Tab) && isJumping == false)
         {
             StartCoroutine(SpecialDash());
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && isJumping == false)
         {
             StartCoroutine(Dash());
         }
 
+        //JUMPING
         if (Input.GetKeyDown(KeyCode.Space) && isJumping == false)
         {
             rb.AddForce(new Vector2(rb.linearVelocity.x, jump));
         }
 
+        //FLIP
         if (Move > 0 && !facingRight)
         {
             Flip();
@@ -91,6 +94,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Coroutine for normal dash
     private IEnumerator Dash()
     {
         canDash = false;
@@ -105,6 +109,7 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
+    //coroutine for special dash
     private IEnumerator SpecialDash()
     {
         canDash = false;
