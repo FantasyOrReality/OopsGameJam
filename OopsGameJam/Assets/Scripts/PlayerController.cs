@@ -50,7 +50,12 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocity = new Vector2(Move * speed, rb.linearVelocity.y);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && isJumping == false)
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            StartCoroutine(SpecialDash());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             StartCoroutine(Dash());
         }
@@ -62,12 +67,12 @@ public class PlayerController : MonoBehaviour
 
         if (Move > 0)
         {
-            gameObject.transform.localScale = new Vector3(1, 1, 1);
+            gameObject.transform.localScale = new Vector2(1, 1);
         }
 
         if (Move < 0)
         {
-            gameObject.transform.localScale = new Vector3(-1, -1, -1);
+            gameObject.transform.localScale = new Vector2(-1, -1);
         }
 
     }
@@ -86,6 +91,20 @@ public class PlayerController : MonoBehaviour
     }
 
     private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+        rb.linearVelocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        yield return new WaitForSeconds(dashingTime);
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+
+    private IEnumerator SpecialDash()
     {
         canDash = false;
         isDashing = true;
