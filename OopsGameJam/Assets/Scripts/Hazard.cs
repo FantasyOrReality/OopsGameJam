@@ -1,10 +1,12 @@
 using UnityEngine;
 
+
 public class Hazard : MonoBehaviour
 {
 
     public int damage = 1;
-    public PlayerController playerHealth;
+    private PlayerController playerHealth;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +23,10 @@ public class Hazard : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            if (playerHealth != null)
+            {
+                playerHealth = collision.gameObject.GetComponent<PlayerController>();
+            }
             playerHealth.TakeDamage(damage);
         }
     }
