@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float Move;
     public float speed;
     public float jump;
+    public bool isJumping;
 
     //health variables
     public int currentHealth;
@@ -58,6 +59,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector2(rb.linearVelocity.x, jump));
         }
+
+        
         
     }
 
