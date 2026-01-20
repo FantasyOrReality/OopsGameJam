@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.VisualScripting;
 
 
 
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     public Slider slider;
 
+    //damage variables
+    public int damageDealt;
+
     //dash variables
     private bool canDash = true;
     private bool isDashing;
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public float dashingCooldown;
     
     Rigidbody2D rb;
+    public EnemyController enemyHealth;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -94,6 +99,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+
+    
+
     //Coroutine for normal dash
     private IEnumerator Dash()
     {
@@ -132,7 +141,14 @@ public class PlayerController : MonoBehaviour
             canDash = true;
         }
 
+        if (other.gameObject.CompareTag("Back") && (isDashing = true))
+        {
+            enemyHealth.TakeDamageFromPlayer(damageDealt);
+        }
+
     }
+
+    
 
     private void OnCollisionExit2D(Collision2D other)
     {
@@ -140,6 +156,11 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = true;
             canDash = false;
+        }
+
+        if (other.gameObject.CompareTag("Back") && (isDashing = true))
+        {
+
         }
     }
 
@@ -151,5 +172,9 @@ public class PlayerController : MonoBehaviour
 
         facingRight = !facingRight;
     }
+
+
+
+    
 
 }
