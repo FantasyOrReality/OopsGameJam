@@ -8,49 +8,53 @@ public class EnemyController : MonoBehaviour
 {
     public int enemyHealth;
     public int enemyMaxHealth;
-
     public PlayerController playerDash;
-    public GameObject enemy;
-    public Rigidbody2D enemyRb;
-    public CapsuleCollider2D backAttackSpot;
+    Rigidbody2D enemyRb;
+    public float speed = 2f;
+    
 
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        
         enemyRb = GetComponent<Rigidbody2D>();
-        backAttackSpot = GetComponent<CapsuleCollider2D>();
         enemyHealth = enemyMaxHealth;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         
     }
 
 
-    public void TakeDamageFromPlayer(int amount)
+    /*public void TakeDamageFromPlayer(int amount)
     {
         enemyHealth -= amount;
         if (enemyHealth <= 0)
         {
             Destroy(gameObject);
         }
-    }
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Back"))
+        if(playerDash.isLethalDashing && collision.gameObject.CompareTag("Player"))
         {
-            Collider2D col = collision.gameObject.GetComponent<CapsuleCollider2D>();
-            if (backAttackSpot.IsTouching(col)) { }
+            enemyHealth = enemyHealth - playerDash.damageDealt;
+            if (enemyHealth <= 0)
             {
-                Debug.Log("Collision");
+                Destroy(gameObject);
             }
         }
-        
     }
+
+
 
 }

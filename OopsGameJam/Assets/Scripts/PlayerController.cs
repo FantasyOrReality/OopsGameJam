@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public float dashingCooldown;
     
     Rigidbody2D rb;
-    public EnemyController enemyHealth;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -142,20 +142,14 @@ public class PlayerController : MonoBehaviour
             canDash = true;
         }
 
-        if (other.gameObject.CompareTag("Back") && (isLethalDashing == true))
+        /*if (other.gameObject.CompareTag("Enemy") && (isLethalDashing == true))
         {
             enemyHealth.TakeDamageFromPlayer(damageDealt);
-        }
+        }*/
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Back") && (isLethalDashing == true))
-        {
-            enemyHealth.TakeDamageFromPlayer(damageDealt);
-        }
-    }
+    
 
 
 
