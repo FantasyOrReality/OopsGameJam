@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
 
     //dash variables
     private bool canDash = true;
-    private bool isDashing;
+    public bool isDashing;
+    public bool isLethalDashing;
     public float dashingPower;
     public float dashingTime;
     public float dashingCooldown;
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDashing)
+        if (isDashing || isLethalDashing)
         {
             return;
         }
@@ -122,13 +123,13 @@ public class PlayerController : MonoBehaviour
     private IEnumerator SpecialDash()
     {
         canDash = false;
-        isDashing = true;
+        isLethalDashing = true;
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
-        rb.linearVelocity = new Vector3(transform.localScale.x * dashingPower, transform.localScale.y * dashingPower, 0f);
+        rb.linearVelocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         yield return new WaitForSeconds(dashingTime);
         rb.gravityScale = originalGravity;
-        isDashing = false;
+        isLethalDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour
             canDash = true;
         }
 
-        if (other.gameObject.CompareTag("Back") && (isDashing = true))
+        if (other.gameObject.CompareTag("Back") && (isLethalDashing == true))
         {
             enemyHealth.TakeDamageFromPlayer(damageDealt);
         }
@@ -158,10 +159,7 @@ public class PlayerController : MonoBehaviour
             canDash = false;
         }
 
-        if (other.gameObject.CompareTag("Back") && (isDashing = true))
-        {
-
-        }
+        
     }
 
     void Flip()
