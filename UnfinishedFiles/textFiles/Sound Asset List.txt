@@ -1,0 +1,14 @@
+Sound Asset List
+
+SlimeDash
+RobotDeathNoise
+SlimeDeathNoise
+ButtonClick
+SlimeTakeDamageNoise
+
+if you want to add any ambience noises on top of the level music:
+dripping water (can be sourced), this is not needed though
+
+MainTitle Music
+Win Screen Music or SFX
+Loss Screen Music or SFX
