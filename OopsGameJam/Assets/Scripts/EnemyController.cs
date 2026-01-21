@@ -11,12 +11,16 @@ public class EnemyController : MonoBehaviour
 
     public PlayerController playerDash;
     public GameObject enemy;
-    Rigidbody2D enemyRb;
+    public Rigidbody2D enemyRb;
+    public CapsuleCollider2D backAttackSpot;
+
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         enemyRb = GetComponent<Rigidbody2D>();
+        backAttackSpot = GetComponent<CapsuleCollider2D>();
         enemyHealth = enemyMaxHealth;
     }
 
@@ -34,6 +38,19 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Back"))
+        {
+            Collider2D col = collision.gameObject.GetComponent<CapsuleCollider2D>();
+            if (backAttackSpot.IsTouching(col)) { }
+            {
+                Debug.Log("Collision");
+            }
+        }
+        
     }
 
 }

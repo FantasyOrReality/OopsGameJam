@@ -149,7 +149,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Back") && (isLethalDashing == true))
+        {
+            enemyHealth.TakeDamageFromPlayer(damageDealt);
+        }
+    }
+
+
 
     private void OnCollisionExit2D(Collision2D other)
     {
