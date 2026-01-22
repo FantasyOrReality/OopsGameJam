@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Back
   - Enemy
+  - Win
   layers:
   - Default
   - TransparentFX

@@ -164,6 +164,11 @@ public class PlayerController : MonoBehaviour
             enemyHealth.TakeDamageFromPlayer(damageDealt);
         }*/
 
+        if (other.gameObject.CompareTag("Win"))
+        {
+            SceneManager.LoadScene("Win");
+        }
+
     }
 
     
