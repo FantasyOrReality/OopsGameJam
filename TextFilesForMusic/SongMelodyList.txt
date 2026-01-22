@@ -1,0 +1,12 @@
+Format:
+PN(A)
+
+Key:
+P-Pitch
+N-Note
+A-Amount of notes
+A C will be added at the end if the note is continuous through the amount. If there is no C, it is a group of notes next to each other
+
+Melodies:
+
+Unnamed melody1: B(8), 
