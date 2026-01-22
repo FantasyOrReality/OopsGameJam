@@ -31,6 +31,11 @@ public class PlayerController : MonoBehaviour
     public float dashingPower;
     public float dashingTime;
     public float dashingCooldown;
+
+    //audiosources
+    public AudioSource dashNoise;
+    public AudioSource slimeHurt;
+    
     
     Rigidbody2D rb;
     
@@ -61,11 +66,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && isJumping == false)
         {
             StartCoroutine(SpecialDash());
+            dashNoise.Play();
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && isJumping == false)
         {
             StartCoroutine(Dash());
+            dashNoise.Play();
         }
 
         //JUMPING
@@ -92,12 +101,20 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth -= amount;
         slider.value = currentHealth;
+        slimeHurt.Play();
+
 
 
         if (currentHealth <= 0)
         {
             SceneManager.LoadScene("Lose");
         }
+    }
+
+    public void CollectHealth(int amount)
+    {
+        currentHealth += amount;
+        slider.value = currentHealth;
     }
 
     

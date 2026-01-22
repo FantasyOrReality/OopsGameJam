@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused = false;
     public GameObject controlsMenu;
     public static bool isControls = false;
+
+    public AudioSource buttonPress;
     
 
     void Start()
@@ -20,13 +22,18 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (isPaused == true && isControls == false)
             {
                 ResumeGame();
             }
-            else
+            else if (isPaused == false && isControls == false)
             {
                 PauseGame();
+            }
+
+            if (isPaused == true && isControls == true)
+            {
+                controlsMenu.SetActive(false);
             }
         }
     }
@@ -52,4 +59,8 @@ public class PauseMenu : MonoBehaviour
         isControls = true;
     }
     
+    public void ButtonNoise()
+    {
+        buttonPress.Play();
+    }
 }

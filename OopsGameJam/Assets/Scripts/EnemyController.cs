@@ -11,10 +11,12 @@ public class EnemyController : MonoBehaviour
     public PlayerController playerDash;
     Rigidbody2D enemyRb;
     public float speed = 2f;
-    
 
-    
-    
+    public AudioSource robotDeath;
+
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -50,6 +52,7 @@ public class EnemyController : MonoBehaviour
             enemyHealth = enemyHealth - playerDash.damageDealt;
             if (enemyHealth <= 0)
             {
+                robotDeath.Play();
                 Destroy(gameObject);
             }
         }
