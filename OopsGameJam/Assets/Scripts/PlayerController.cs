@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     //audiosources
     public AudioSource dashNoise;
     public AudioSource slimeHurt;
+
+    //anims
+    Animator dashAnim;
     
     
     Rigidbody2D rb;
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         slider.maxValue = maxHealth;
         slider.value = currentHealth;
-        
+        dashAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -67,20 +70,34 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(SpecialDash());
             dashNoise.Play();
+            dashAnim.SetBool("isLethalDashing", true);
 
-
+        }
+        else
+        {
+            dashAnim.SetBool("isLethalDashing", false);
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && isJumping == false)
         {
             StartCoroutine(Dash());
             dashNoise.Play();
+            dashAnim.SetBool("isDashing", true);
+        }
+        else
+        {
+            dashAnim.SetBool("isDashing", false);
         }
 
         //JUMPING
         if (Input.GetKeyDown(KeyCode.Space) && isJumping == false)
         {
             rb.AddForce(new Vector2(rb.linearVelocity.x, jump));
+            dashAnim.SetBool("isJumping", true);
+        }
+        else
+        {
+            dashAnim.SetBool("isJumping", false);
         }
 
         //FLIP
